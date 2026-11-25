@@ -49,6 +49,29 @@ endpoint and PostHog project token there are public client-side settings and
 are included in the published JavaScript bundle; do not put private credentials
 there.
 
+## Campaign documentation
+
+See [`docs/lead-generation-campaign.md`](./docs/lead-generation-campaign.md)
+for the proposed acquisition channels, UTM links, evidence checklist, and
+clearly labelled synthetic comparison. The scenario figures are not measured
+campaign results; record real channel activity separately.
+
+## PostHog campaign simulation
+
+The Playwright scenario in `playwright-validation/simulate-users.cjs` targets
+the public site and sends clearly tagged simulated events
+(`utm_campaign=validation2_simulated`, `campaign_simulation=true`) to the
+configured PostHog project. Run it with:
+
+```powershell
+node playwright-validation/simulate-users.cjs
+```
+
+The app disables PostHog's user-agent bot filter only for that tagged campaign;
+normal visitors remain filtered as usual. Formspree is intercepted and mocked,
+so example addresses are not submitted to the mailing list. Run only when you
+intend to add test traffic to the project's analytics.
+
 ## Current limitations
 This is a frontend prototype. Sample ideas are stored locally in `src/data/ideas.ts`. There is no backend, authentication, persistent saved list, real user accounts, or messaging yet. Those features need a backend/API and database integration. Newsletter signups require a configured Formspree endpoint.
 

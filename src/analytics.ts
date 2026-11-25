@@ -3,6 +3,10 @@ const apiHost = import.meta.env.VITE_POSTHOG_HOST?.trim() || 'https://eu.i.posth
 
 type PostHogClient = typeof import('posthog-js').default
 
+const isCampaignSimulation = () =>
+  new URLSearchParams(window.location.search).get('utm_campaign') ===
+  'validation2_simulated'
+
 let initialized = false
 let consentGranted = false
 let consentRevision = 0
@@ -41,6 +45,7 @@ export async function enableAnalytics() {
         capture_pageleave: false,
         capture_performance: false,
         enable_recording_console_log: false,
+        opt_out_useragent_filter: isCampaignSimulation(),
         session_recording: {
           maskAllInputs: true,
         },
@@ -50,7 +55,10 @@ export async function enableAnalytics() {
 
     client.opt_in_capturing()
     consentGranted = true
-    client.capture('$pageview', { $current_url: window.location.href })
+    client.capture('$pageview', {
+      $current_url: window.location.href,
+      campaign_simulation: isCampaignSimulation(),
+    })
     return true
   } catch (error) {
     if (revision === consentRevision) {
@@ -71,5 +79,10 @@ export function captureAnalytics(
   event: string,
   properties?: Record<string, string | number | boolean>,
 ) {
-  if (consentGranted) posthogClient?.capture(event, properties)
+  if (consentGranted) {
+    posthogClient?.capture(event, {
+      ...properties,
+      campaign_simulation: isCampaignSimulation(),
+    })
+  }
 }
