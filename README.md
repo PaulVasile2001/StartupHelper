@@ -35,7 +35,8 @@ VITE_POSTHOG_HOST=https://eu.i.posthog.com
 Use the ingestion host for your PostHog project region. Analytics and session
 replay start only after a visitor accepts; visitors can reject or change their
 choice using “Privacy settings”. Input fields are masked in session recordings,
-and automatic event capture is disabled. The funnel events are `cta_clicked`,
+console-log capture, performance capture, and automatic event capture are
+disabled. The funnel events are `cta_clicked`,
 `newsletter_signup_submitted`, and `newsletter_signup_succeeded`; no email
 address is sent as an analytics property. Enable session replay for the project
 in PostHog if it is not already enabled.

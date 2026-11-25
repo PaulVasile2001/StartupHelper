@@ -39,6 +39,8 @@ export async function enableAnalytics() {
         autocapture: false,
         capture_pageview: false,
         capture_pageleave: false,
+        capture_performance: false,
+        enable_recording_console_log: false,
         session_recording: {
           maskAllInputs: true,
         },
