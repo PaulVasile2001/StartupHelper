@@ -40,6 +40,14 @@ and automatic event capture is disabled. The funnel events are `cta_clicked`,
 address is sent as an analytics property. Enable session replay for the project
 in PostHog if it is not already enabled.
 
+## Deployment
+
+Pushing to `main` automatically builds and publishes the site through the
+GitHub Actions workflow in `.github/workflows/deploy.yml`. The Formspree
+endpoint and PostHog project token there are public client-side settings and
+are included in the published JavaScript bundle; do not put private credentials
+there.
+
 ## Current limitations
 This is a frontend prototype. Sample ideas are stored locally in `src/data/ideas.ts`. There is no backend, authentication, persistent saved list, real user accounts, or messaging yet. Those features need a backend/API and database integration. Newsletter signups require a configured Formspree endpoint.
 

@@ -28,6 +28,10 @@ jobs:
         run: npm install
       - name: Build website
         run: npm run build
+        env:
+          VITE_FORMSPREE_ENDPOINT: https://formspree.io/f/xoedrkan
+          VITE_POSTHOG_KEY: phc_xHaSKdBaKdy8RB28DZiLd6CyfuARxRooCJucthMcp3uq
+          VITE_POSTHOG_HOST: https://eu.i.posthog.com
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
