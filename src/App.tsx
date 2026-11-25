@@ -3,6 +3,9 @@ import Navbar from './components/Navbar'
 import DiscoverPreview from './components/DiscoverPreview'
 import HowItWorks from './components/HowItWorks'
 import Footer from './components/Footer'
+import LeadCapture from './components/LeadCapture'
+import AnalyticsConsent from './components/AnalyticsConsent'
+import { captureAnalytics } from './analytics'
 
 function App() {
   return (
@@ -15,7 +18,13 @@ function App() {
             <h1>Find your<br/><span className="nowrap">co-founders.</span></h1>
             <p className="hero-lede">Every great startup begins with a spark. Find your people, test your idea, and make the next move together.</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#get-started">Share your idea <ArrowUpRight size={16} /></a>
+              <a
+                className="button button-primary"
+                href="#get-started"
+                onClick={() => captureAnalytics('cta_clicked', { placement: 'hero' })}
+              >
+                Get updates <ArrowUpRight size={16} />
+              </a>
               <a className="button button-quiet" href="#how-it-works"><span className="play-icon">▶</span> See how it works</a>
             </div>
             <div className="social-proof">
@@ -62,12 +71,13 @@ function App() {
           <div className="cta-decoration cta-star-left">✳</div><div className="cta-decoration cta-star-right">✳</div>
           <div className="eyebrow">YOUR IDEA HAS A PLACE HERE</div>
           <h2>So, what are you<br />thinking about?</h2>
-          <p>Bring the half-formed thought. Leave with a little more possibility.</p>
-          <a className="button button-light" href="#discover">Explore the ideas <ArrowUpRight size={16} /></a>
-          <small>No perfect plan required. Just curiosity.</small>
+          <p>Join the list for product news, new ideas, and ways to find your people.</p>
+          <LeadCapture />
+          <small>No spam. Just occasional updates from Startup Helper.</small>
         </section>
       </main>
       <Footer />
+      <AnalyticsConsent />
     </>
   )
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Menu, X, Sparkles } from 'lucide-react'
+import { captureAnalytics } from '../analytics'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -23,7 +24,16 @@ export default function Navbar() {
       <nav className={`main-nav ${open ? 'open' : ''}`} aria-label="Main navigation">
         <a href="#how-it-works" onClick={close}>How it works</a>
         <a href="#community" onClick={close}>Community</a>
-        <a className="nav-cta" href="#get-started" onClick={close}>Get started <span>↗</span></a>
+        <a
+          className="nav-cta"
+          href="#get-started"
+          onClick={() => {
+            close()
+            captureAnalytics('cta_clicked', { placement: 'navbar' })
+          }}
+        >
+          Get started <span>↗</span>
+        </a>
       </nav>
     </header>
   )
