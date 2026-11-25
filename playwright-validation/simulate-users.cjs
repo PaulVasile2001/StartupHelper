@@ -1,6 +1,6 @@
 const { chromium } = require('playwright');
 
-const URL = 'https://paulvasile2001.github.io/StartupHelper/';
+const SITE_URL = 'https://paulvasile2001.github.io/StartupHelper/';
 const CAMPAIGN = 'validation2_simulated';
 
 console.log('[TEST MODE] PostHog events are tagged campaign_simulation=true; Formspree submissions are mocked.');
@@ -153,7 +153,7 @@ async function runVisitor(visitor) {
 
   try {
     console.log(`\n[START] ${visitor.name} | sursa: ${visitor.utm}`);
-    const campaignUrl = new URL(URL);
+    const campaignUrl = new URL(SITE_URL);
     campaignUrl.searchParams.set('utm_source', visitor.utm);
     campaignUrl.searchParams.set('utm_medium', visitor.utm === 'linkedin' ? 'social' : 'community');
     campaignUrl.searchParams.set('utm_campaign', CAMPAIGN);
